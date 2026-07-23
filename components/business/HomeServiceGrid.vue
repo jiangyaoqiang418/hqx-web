@@ -158,12 +158,44 @@ defineProps<{
 }
 
 @media (max-width: 1439px) {
+  .home-services {
+    right: max(40px, calc((100% - 1240px) / 2));
+    bottom: 12px;
+    left: max(40px, calc((100% - 1240px) / 2));
+    gap: 12px;
+  }
+
+  .home-service-card {
+    height: 168px;
+  }
+
+  .home-service-card__content {
+    padding: 16px 14px 12px;
+  }
+
+  .home-service-card__heading {
+    gap: 10px;
+  }
+
+  .home-service-card__heading img {
+    width: 40px;
+    height: 40px;
+  }
+
   .home-service-card h2 {
     font-size: 17px;
   }
 
   .home-service-card p {
-    margin-left: 58px;
+    margin-left: 50px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .home-service-card__link {
+    bottom: 12px;
+    left: 64px;
+    font-size: 12px;
   }
 }
 </style>

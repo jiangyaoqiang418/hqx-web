@@ -3,7 +3,7 @@ import { siteConfig } from '~/config/site'
 
 const route = useRoute()
 const mobileOpen = ref(false)
-const isHome = computed(() => route.path === '/')
+const isOverlayHeader = computed(() => true)
 
 const isActive = (to: string) => (to === '/' ? route.path === '/' : route.path.startsWith(to))
 
@@ -16,7 +16,7 @@ watch(
 </script>
 
 <template>
-  <header :class="['site-header', { 'site-header--home': isHome }]">
+  <header :class="['site-header', { 'site-header--home': isOverlayHeader }]">
     <a
       class="skip-link"
       href="#main-content"

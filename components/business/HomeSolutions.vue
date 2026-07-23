@@ -192,17 +192,36 @@ defineProps<{
 }
 
 @media (max-width: 1439px) {
+  .home-solutions {
+    height: 178px;
+    padding-block: 20px;
+  }
+
   .home-solutions__inner {
-    grid-template-columns: 250px minmax(0, 1fr);
+    height: 138px;
+    grid-template-columns: 230px minmax(0, 1fr);
     gap: 20px;
+  }
+
+  .home-solutions__intro h2 {
+    font-size: 24px;
+  }
+
+  .home-solutions__intro p {
+    margin-bottom: 12px;
+    font-size: 12px;
   }
 
   .home-solutions__grid {
     gap: 10px;
   }
 
+  .home-solution-card {
+    height: 138px;
+  }
+
   .home-solution-card h3 {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 </style>

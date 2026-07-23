@@ -27,76 +27,98 @@ useHead({
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Article',
-        'headline': resolvedArticle.title,
-        'description': resolvedArticle.description,
-        'datePublished': resolvedArticle.publishedAt,
-        'dateModified': resolvedArticle.updatedAt || resolvedArticle.publishedAt,
-        'author': {
-          '@type': 'Organization',
-          'name': resolvedArticle.department,
-        },
+        headline: resolvedArticle.title,
+        description: resolvedArticle.description,
+        image: resolvedArticle.cover,
+        datePublished: resolvedArticle.publishedAt,
+        dateModified: resolvedArticle.updatedAt || resolvedArticle.publishedAt,
+        author: { '@type': 'Organization', name: resolvedArticle.department },
       }),
     },
   ],
 })
-
-const formatDate = (date: string) =>
-  new Intl.DateTimeFormat('zh-CN', { dateStyle: 'long' }).format(new Date(date))
 </script>
 
 <template>
-  <article class="article-page">
-    <header class="article-header">
-      <div class="site-container article-header__inner">
-        <NuxtLink
-          class="article-header__back"
-          to="/news"
-        >返回新闻动态</NuxtLink>
-        <h1>{{ resolvedArticle.title }}</h1>
-        <p>{{ resolvedArticle.description }}</p>
-        <div class="article-header__meta">
-          <span>{{ resolvedArticle.category }}</span>
-          <time :datetime="resolvedArticle.publishedAt">{{ formatDate(resolvedArticle.publishedAt) }}</time>
-          <span>{{ resolvedArticle.department }}</span>
+  <article class="news-article-page">
+    <NewsArticleHero :article="resolvedArticle" />
+    <main class="news-article-page__content">
+      <div class="news-article-page__container">
+        <NuxtImg
+          v-if="resolvedArticle.cover"
+          :src="resolvedArticle.cover"
+          :alt="resolvedArticle.title"
+          width="1000"
+          height="500"
+          class="news-article-page__cover"
+        />
+        <ContentRenderer :value="resolvedArticle" class="news-article-page__body" />
+        <div class="news-article-page__footer">
+          <NuxtLink to="/news">← 返回新闻动态</NuxtLink>
         </div>
       </div>
-    </header>
-    <SectionContainer>
-      <ContentRenderer
-        class="article-content"
-        :value="resolvedArticle"
-      />
-    </SectionContainer>
+    </main>
   </article>
 </template>
 
 <style scoped>
-.article-header {
-  padding-block: 5rem;
-  border-bottom: 1px solid var(--color-border);
-  background: radial-gradient(circle at 70% 0, rgb(2 128 242 / 18%), transparent 30rem);
+.news-article-page {
+  min-width: 1200px;
+  background: #04142c;
 }
 
-.article-header__inner { max-width: 60rem; }
-.article-header__back { color: var(--color-accent-cyan); }
-.article-header h1 {
-  margin: 1.5rem 0 0;
-  color: var(--color-text-primary);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1.2;
+.news-article-page__content {
+  padding: 36px 0 64px;
 }
-.article-header p { margin: 1rem 0 0; color: var(--color-text-secondary); }
-.article-header__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 2rem;
-  margin-top: 1.5rem;
-  color: var(--color-text-muted);
-}
-.article-content {
-  max-width: 52rem;
+
+.news-article-page__container {
+  width: min(calc(100% - 32px), 900px);
   margin-inline: auto;
-  padding-block: 4rem;
+}
+
+.news-article-page__cover {
+  display: block;
+  width: 100%;
+  max-height: 450px;
+  border: 1px solid rgb(52 118 194 / 46%);
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.news-article-page__body {
   color: var(--color-text-secondary);
+  font-size: 16px;
+  line-height: 2;
+}
+
+.news-article-page__body :deep(p) {
+  margin: 24px 0 0;
+}
+
+.news-article-page__footer {
+  margin-top: 38px;
+  padding-top: 18px;
+  border-top: 1px solid rgb(52 118 194 / 42%);
+}
+
+.news-article-page__footer a {
+  color: var(--color-accent-cyan);
+  font-size: 14px;
+}
+
+@media (max-width: 1199px) {
+  .news-article-page {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .news-article-page__content {
+    padding-block: 24px 40px;
+  }
+
+  .news-article-page__body {
+    font-size: 15px;
+  }
 }
 </style>

@@ -1,13 +1,4 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
-
-const services = [
-  ['售前咨询', '专业团队解答方案与产品相关问题。'],
-  ['方案定制', '根据业务需求提供定制化解决方案。'],
-  ['技术实施', '专业技术团队保障项目顺利实施。'],
-  ['售后服务', '提供持续服务与技术支持。'],
-]
-
 usePageSeo({
   title: '联系我们',
   description: '联系微恩熵算科技，获取气象、能源、遥感和数字化平台相关的产品咨询、方案定制与技术支持。',
@@ -16,114 +7,148 @@ usePageSeo({
 </script>
 
 <template>
-  <div>
-    <PageHero
-      title="联系我们"
-      subtitle="携手微恩熵算，探索气象与能源的无限可能"
-      description="我们致力于为客户提供专业、高效、可靠的气象与能源数据智能服务，期待与您建立长期合作关系。"
-      :primary-cta="{ label: '发送商务邮件', to: `mailto:${siteConfig.contact.businessEmail}` }"
-    />
-    <section class="content-section">
-      <SectionContainer>
-        <SectionTitle
-          title="联系方式"
-          description="通过电话或电子邮件与我们取得联系。在线留言将在服务接口确认后开放。"
-        />
-        <div class="contact-grid">
-          <address class="contact-panel">
-            <div>
-              <UIcon
-                name="i-lucide-phone"
-                aria-hidden="true"
-              />
-              <span>联系电话</span>
-              <a :href="`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`">{{ siteConfig.contact.phone }}</a>
+  <div class="contact-page">
+    <ContactHero />
+    <main class="contact-page__content">
+      <div class="site-container">
+        <section class="contact-page__main">
+          <ContactDetails />
+          <section class="contact-page__map">
+            <div class="contact-page__map-heading">
+              <div>
+                <h2>公司位置</h2>
+                <span aria-hidden="true" />
+              </div>
+              <a href="https://maps.google.com" target="_blank" rel="noreferrer">查看大图 <UIcon name="i-lucide-external-link" aria-hidden="true" /></a>
             </div>
-            <div>
-              <UIcon
-                name="i-lucide-mail"
-                aria-hidden="true"
-              />
-              <span>商务合作</span>
-              <a :href="`mailto:${siteConfig.contact.businessEmail}`">{{ siteConfig.contact.businessEmail }}</a>
-            </div>
-            <div>
-              <UIcon
-                name="i-lucide-headphones"
-                aria-hidden="true"
-              />
-              <span>技术支持</span>
-              <a :href="`mailto:${siteConfig.contact.supportEmail}`">{{ siteConfig.contact.supportEmail }}</a>
-            </div>
-            <div>
-              <UIcon
-                name="i-lucide-map-pin"
-                aria-hidden="true"
-              />
-              <span>公司地址</span>
-              <p>{{ siteConfig.contact.address }}</p>
-            </div>
-          </address>
-          <div class="contact-services">
-            <BusinessCard
-              v-for="([title, description]) in services"
-              :key="title"
-              :title="title"
-              :description="description"
+            <NuxtImg
+              src="/images/contact/location-map.png"
+              alt="微恩熵算公司位置示意图"
+              width="700"
+              height="380"
             />
-          </div>
-        </div>
-      </SectionContainer>
-    </section>
+          </section>
+          <ContactMessageForm />
+        </section>
+        <ContactSupport />
+      </div>
+    </main>
   </div>
 </template>
 
 <style scoped>
-.contact-grid {
-  display: grid;
-  grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
-  gap: 1rem;
+.contact-page {
+  min-width: 1200px;
+  background: #04142c;
 }
 
-.contact-panel {
-  display: grid;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  border: 1px solid var(--color-border);
-  border-radius: 0.75rem;
-  background: var(--color-bg-card);
-  font-style: normal;
+.contact-page__content {
+  padding: 0 0 24px;
 }
 
-.contact-panel div {
+.contact-page__main {
   display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.25rem 0.75rem;
+  grid-template-columns: minmax(250px, 0.77fr) minmax(460px, 1.25fr) minmax(350px, 0.9fr);
+  gap: 12px;
 }
 
-.contact-panel svg {
-  grid-row: 1 / 3;
-  width: 1.5rem;
-  height: 1.5rem;
+.contact-page__map {
+  min-height: 430px;
+  padding: 20px;
+  border: 1px solid rgb(52 118 194 / 46%);
+  border-radius: 7px;
+  background: linear-gradient(145deg, rgb(7 31 68 / 94%), rgb(3 20 48 / 94%));
+}
+
+.contact-page__map-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.contact-page__map h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.contact-page__map-heading span {
+  display: block;
+  width: 38px;
+  height: 2px;
+  margin-top: 8px;
+  background: var(--color-accent-cyan);
+}
+
+.contact-page__map-heading a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: var(--color-accent-cyan);
+  font-size: 12px;
 }
 
-.contact-panel span { color: var(--color-text-muted); }
-.contact-panel a,
-.contact-panel p { margin: 0; color: var(--color-text-primary); }
-.contact-panel a:hover { color: var(--color-accent-cyan); }
-
-.contact-services {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+.contact-page__map-heading svg {
+  width: 13px;
+  height: 13px;
 }
 
-@media (max-width: 1023px) {
-  .contact-grid { grid-template-columns: 1fr; }
+.contact-page__map > img {
+  display: block;
+  width: 100%;
+  height: 368px;
+  margin-top: 14px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+@media (max-width: 1439px) {
+  .contact-page__main {
+    grid-template-columns: minmax(212px, 0.78fr) minmax(390px, 1.2fr) minmax(300px, 0.9fr);
+    gap: 10px;
+  }
+
+  .contact-page__map {
+    min-height: 386px;
+    padding: 16px;
+  }
+
+  .contact-page__map > img {
+    height: 318px;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .contact-page {
+    min-width: 0;
+  }
+
+  .contact-page__content {
+    padding-block: 24px 40px;
+  }
+
+  .contact-page__main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-page__map {
+    grid-column: span 2;
+  }
 }
 
 @media (max-width: 767px) {
-  .contact-services { grid-template-columns: 1fr; }
+  .contact-page__main {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-page__map {
+    grid-column: auto;
+  }
+
+  .contact-page__map > img {
+    height: 260px;
+  }
 }
 </style>

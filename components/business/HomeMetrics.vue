@@ -92,4 +92,23 @@ defineProps<{
   font-size: 13px;
   white-space: nowrap;
 }
+
+@media (max-width: 1439px) {
+  .home-metric {
+    gap: 12px;
+  }
+
+  .home-metric img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .home-metric strong {
+    font-size: 22px;
+  }
+
+  .home-metric span {
+    font-size: 12px;
+  }
+}
 </style>

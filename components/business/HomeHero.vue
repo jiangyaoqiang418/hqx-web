@@ -307,7 +307,12 @@ const radarStyle = {
 }
 
 @media (max-width: 1439px) {
+  .home-hero {
+    height: 620px;
+  }
+
   .home-hero__copy {
+    top: 128px;
     width: 520px;
   }
 
@@ -316,11 +321,14 @@ const radarStyle = {
   }
 
   .home-radar-stage {
+    top: 210px;
     left: 52%;
     width: 250px;
+    height: 205px;
   }
 
   .home-abilities {
+    top: 124px;
     width: 150px;
   }
 }
