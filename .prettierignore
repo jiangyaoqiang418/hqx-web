@@ -1,0 +1,6 @@
+.nuxt
+.output
+.data
+node_modules
+public/images
+pnpm-lock.yaml

@@ -1,0 +1,274 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+:root {
+  color-scheme: dark;
+
+  --color-bg-page: #040c1c;
+  --color-bg-deep: #040414;
+  --color-bg-section: #04142c;
+  --color-bg-card: #061a36;
+  --color-bg-card-strong: #0a1a3a;
+  --color-brand-blue: #0280f2;
+  --color-brand-blue-deep: #056ce6;
+  --color-brand-cyan: #03a4f7;
+  --color-brand-green: #40c75a;
+  --color-accent-cyan: #01ecf4;
+  --color-accent-cyan-mid: #00c2d2;
+  --color-accent-cyan-deep: #009aaa;
+  --color-action-start: #2072f4;
+  --color-action-end: #0242ab;
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: #b1b8c7;
+  --color-text-muted: #8f9bad;
+  --color-border: rgb(66 126 190 / 35%);
+  --color-border-active: rgb(1 236 244 / 70%);
+  --color-error: #ff5c6c;
+  --color-warning: #dea51a;
+  --color-success: #40c75a;
+  --color-scene-01: #8cb02b;
+  --color-scene-02: #347ad6;
+  --color-scene-03: #5f52cd;
+  --color-scene-04: #0ca9a6;
+  --color-scene-05: #10a79f;
+  --color-scene-06: #dea51a;
+  --color-scene-07: #de7415;
+  --color-scene-08: #da73aa;
+  --color-scene-09: #4591da;
+  --color-scene-10: #70bb74;
+  --color-solution-energy-icon-bg: #aff4d4;
+  --color-solution-engineering-icon-bg: #fae7bb;
+  --color-solution-disaster-icon-bg: #d7e3fa;
+  --color-solution-satellite-icon-bg: #c1f5fb;
+  --color-solution-government-icon-bg: #bcd1f7;
+  --color-scrollbar-track: #020d21;
+  --color-scrollbar-thumb: rgb(5 108 230 / 55%);
+  --color-scrollbar-thumb-hover: rgb(2 128 242 / 80%);
+
+  --ui-primary: var(--color-accent-cyan);
+  --ui-success: var(--color-success);
+  --ui-warning: var(--color-warning);
+  --ui-error: var(--color-error);
+  --ui-text-dimmed: #728096;
+  --ui-text-muted: var(--color-text-muted);
+  --ui-text-toned: var(--color-text-secondary);
+  --ui-text: var(--color-text-secondary);
+  --ui-text-highlighted: var(--color-text-primary);
+  --ui-text-inverted: var(--color-bg-deep);
+  --ui-bg: var(--color-bg-page);
+  --ui-bg-muted: var(--color-bg-section);
+  --ui-bg-elevated: var(--color-bg-card);
+  --ui-bg-accented: var(--color-bg-card-strong);
+  --ui-bg-inverted: var(--color-text-primary);
+  --ui-border: var(--color-border);
+  --ui-border-muted: rgb(66 126 190 / 24%);
+  --ui-border-accented: var(--color-border-active);
+  --ui-border-inverted: var(--color-text-primary);
+  --ui-radius: 0.5rem;
+  --ui-container: 90rem;
+  --ui-header-height: 5rem;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 2px solid var(--color-scrollbar-track);
+  border-radius: 8px;
+  background: var(--color-scrollbar-thumb);
+  background-clip: padding-box;
+  transition: background-color 180ms ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--color-scrollbar-track);
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  background: var(--color-bg-page);
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--color-text-secondary);
+  background:
+    radial-gradient(circle at 50% -15%, rgb(2 128 242 / 16%), transparent 38rem),
+    var(--color-bg-page);
+  font-family:
+    'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 3px;
+}
+
+::selection {
+  color: var(--color-bg-deep);
+  background: var(--color-accent-cyan);
+}
+
+.site-shell {
+  min-height: 100dvh;
+  background:
+    linear-gradient(rgb(4 12 28 / 82%), rgb(4 12 28 / 96%)),
+    radial-gradient(circle at 78% 16%, rgb(2 128 242 / 14%), transparent 30rem);
+}
+
+.site-main {
+  min-height: calc(100dvh - var(--ui-header-height));
+}
+
+.site-main:has(.home-page) {
+  min-height: 941px;
+}
+
+.site-container {
+  width: min(calc(100% - 130px), 1542px);
+  margin-inline: auto;
+}
+
+.content-section {
+  padding-block: 4rem;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.content-panel {
+  min-height: 10rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(145deg, rgb(6 26 54 / 92%), rgb(4 20 44 / 80%)),
+    var(--color-bg-card);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%);
+}
+
+.content-panel h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.content-panel p {
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.error-page {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  background: var(--color-bg-page);
+}
+
+.error-page__content {
+  max-width: 40rem;
+  text-align: center;
+}
+
+.error-page__code {
+  margin: 0;
+  color: var(--color-accent-cyan);
+  font-size: clamp(4rem, 15vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.error-page h1 {
+  margin: 1rem 0 0;
+  color: var(--color-text-primary);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.error-page p:not(.error-page__code) {
+  margin: 1rem 0 2rem;
+}
+
+@media (min-width: 768px) {
+  .content-section {
+    padding-block: 5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .content-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --ui-header-height: 4.5rem;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-section {
+    padding-block: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
