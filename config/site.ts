@@ -6,7 +6,7 @@ export const siteConfig = {
   englishName: 'WEIKEN ENTROPY COMPUTING TECHNOLOGY CO., LTD.',
   description: '融合气象、能源、遥感与人工智能技术，提供数据、算法与平台一体化解决方案。',
   navigation: [
-    { label: '首页', to: '/' },
+    { label: '首页1', to: '/' },
     { label: '解决方案', to: '/solutions' },
     { label: '产品中心', to: '/products' },
     { label: '技术能力', to: '/technology' },
