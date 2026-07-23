@@ -1,0 +1,74 @@
+name: Deploy static site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: weiken-site-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate static site
+        env:
+          NUXT_PUBLIC_SITE_URL: ${{ secrets.SITE_URL }}
+        run: pnpm generate
+
+      - name: Configure deployment key
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload static site
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          tar -cf /tmp/weiken-site-public.tar -C .output/public .
+          scp /tmp/weiken-site-public.tar "$DEPLOY_USER@$DEPLOY_HOST:/tmp/weiken-site-public.tar"
+
+      - name: Activate static site
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh "$DEPLOY_USER@$DEPLOY_HOST" <<'EOF'
+          set -euo pipefail
+          rm -rf /var/www/weiken-site-public.next
+          mkdir -p /var/www/weiken-site-public.next
+          tar -xf /tmp/weiken-site-public.tar -C /var/www/weiken-site-public.next
+          rm -f /tmp/weiken-site-public.tar
+          test -f /var/www/weiken-site-public.next/index.html
+          rm -rf /var/www/weiken-site-public
+          mv /var/www/weiken-site-public.next /var/www/weiken-site-public
+          nginx -t
+          systemctl reload nginx
+          EOF
