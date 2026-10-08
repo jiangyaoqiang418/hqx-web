@@ -19,8 +19,12 @@ usePageEntrance(root)
     <div class="scenarios-hero__background" />
     <div class="site-container scenarios-hero__inner">
       <div class="scenarios-hero__copy">
-        <h1 data-entrance>应用场景</h1>
-        <h2 data-entrance>多领域深度应用，赋能行业智能化升级</h2>
+        <h1 data-entrance>
+          应用场景
+        </h1>
+        <h2 data-entrance>
+          多领域深度应用，赋能行业智能化升级
+        </h2>
         <p data-entrance>
           微恩熵算将气象、能源、遥感与人工智能技术深度融合，为政府、企业和行业客户提供专业、可靠、智能的数据与解决方案。
         </p>
@@ -63,7 +67,7 @@ usePageEntrance(root)
   background:
     linear-gradient(90deg, rgb(3 12 29 / 92%) 0%, rgb(3 12 29 / 50%) 36%, rgb(3 12 29 / 4%) 80%),
     linear-gradient(180deg, rgb(3 12 29 / 4%) 0%, rgb(3 12 29 / 68%) 100%),
-    url('/images/scenarios/hero-background.png') center 44% / cover no-repeat;
+    url('/images/scenarios/hero-background.png') center 20% / cover no-repeat;
 }
 
 .scenarios-hero__inner {
@@ -111,9 +115,9 @@ usePageEntrance(root)
 
 .scenarios-hero__metric {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
+  grid-template-columns: 42px minmax(0, 1fr);
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
   padding: 0 12px;
 }
@@ -122,9 +126,10 @@ usePageEntrance(root)
   border-left: 1px solid rgb(177 184 199 / 24%);
 }
 
-.scenarios-hero__metric svg {
-  width: 34px;
-  height: 34px;
+.scenarios-hero__metric > .iconify {
+  display: block;
+  width: 40px;
+  height: 40px;
   color: var(--color-accent-cyan);
 }
 
@@ -166,14 +171,14 @@ usePageEntrance(root)
   }
 
   .scenarios-hero__metric {
-    grid-template-columns: 28px minmax(0, 1fr);
-    gap: 5px;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 6px;
     padding-inline: 7px;
   }
 
-  .scenarios-hero__metric svg {
-    width: 26px;
-    height: 26px;
+  .scenarios-hero__metric > .iconify {
+    width: 32px;
+    height: 32px;
   }
 
   .scenarios-hero__metric strong {

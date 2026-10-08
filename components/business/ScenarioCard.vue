@@ -38,7 +38,9 @@ defineProps<{
         <li
           v-for="point in scenario.points"
           :key="point"
-        >{{ point }}</li>
+        >
+          {{ point }}
+        </li>
       </ul>
       <NuxtLink
         class="scenario-card__link"
@@ -58,6 +60,7 @@ defineProps<{
 
 <style scoped>
 .scenario-card {
+  position: relative;
   display: grid;
   min-width: 0;
   min-height: 294px;
@@ -65,22 +68,64 @@ defineProps<{
   border: 1px solid rgb(58 129 204 / 48%);
   border-radius: 5px;
   background: linear-gradient(150deg, rgb(7 34 76 / 94%), rgb(3 20 48 / 96%));
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.scenario-card::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  content: '';
+  transition: box-shadow 300ms ease;
 }
 
 .scenario-card:hover {
   border-color: var(--color-border-active);
-  box-shadow: 0 0 24px rgb(1 236 244 / 14%), inset 0 0 20px rgb(2 128 242 / 10%);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+}
+
+.scenario-card:hover::after {
+  box-shadow: inset 0 0 34px rgb(1 236 244 / 24%);
 }
 
 .scenario-card__image {
   position: relative;
   min-height: 166px;
+  overflow: hidden;
   padding: 14px;
-  background:
-    linear-gradient(180deg, rgb(3 12 29 / 4%) 22%, rgb(3 12 29 / 88%) 100%),
-    var(--card-image) center / cover no-repeat;
+  isolation: isolate;
+}
+
+.scenario-card__image::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: var(--card-image) center / cover no-repeat;
+  content: '';
+  transition: transform 260ms ease;
+}
+
+.scenario-card__image::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(3 12 29 / 4%) 22%, rgb(3 12 29 / 88%) 100%);
+  content: '';
+  pointer-events: none;
+}
+
+.scenario-card__image > * {
+  position: relative;
+  z-index: 2;
+}
+
+.scenario-card:hover .scenario-card__image::before {
+  transform: scale(1.045);
 }
 
 .scenario-card__heading {
